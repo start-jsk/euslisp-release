@@ -1,0 +1,12 @@
+#
+# echo \"`date`\" >MAKEDATE 
+export LANG=C
+echo "char *makedate="\"`date`\"';'
+echo "#if Linux"
+echo "char *svnrevision="\"r`svnversion -n`\"';'
+echo "#else"
+echo "char *svnrevision="\"\"';'
+echo "#endif"
+echo "char *compilehost="\"`hostname`\"';'
+
+
