@@ -1,6 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; $Id: irtgl.l 909 2013-05-22 06:07:15Z snozawa $
+;;; $Id: irtgl.l 912 2013-05-25 08:22:28Z kyouhei $
 ;;;
 ;;; Copyright (c) 1987- JSK, The University of Tokyo.  All Rights Reserved.
 ;;;
@@ -891,8 +891,12 @@
              (when tp
                (cond
                 (indices
+#+:x86_64
                  (glDrawElements tp (length indices) GL_UNSIGNED_INT
-                                 (user::lvector2integer-bytestring indices)))
+                                 (user::lvector2integer-bytestring indices))
+#-:x86_64
+                 (glDrawElements tp (length indices) GL_UNSIGNED_INT indices)
+                 )
                 (t
                  (glDrawArrays tp 0 (array-dimension vertices 0)))
                 )))
@@ -963,11 +967,11 @@
 (objects (list a))
 |#
 
-(provide :irtgl "$Id: irtgl.l 909 2013-05-22 06:07:15Z snozawa $")
+(provide :irtgl "$Id: irtgl.l 912 2013-05-25 08:22:28Z kyouhei $")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; $Id: irtgl.l 909 2013-05-22 06:07:15Z snozawa $
+;;; $Id: irtgl.l 912 2013-05-25 08:22:28Z kyouhei $
 ;;;
 ;;; $Log$
 ;;; Revision 1.7  2009-08-03 06:26:32  eus
