@@ -29,10 +29,10 @@ export EUSDIR=$(shell pwd)/eus
 
 manuals: manual.pdf jmanual.pdf
 manual.pdf:
-	wget http://svn.code.sf.net/p/euslisp/code/trunk/EusLisp/doc/latex/manual.pdf -O manual.pdf
+	which wget && wget http://svn.code.sf.net/p/euslisp/code/trunk/EusLisp/doc/latex/manual.pdf -O manual.pdf
 
 jmanual.pdf:
-	wget http://svn.code.sf.net/p/euslisp/code/trunk/EusLisp/doc/jlatex/jmanual.pdf -O jmanual.pdf
+	which wget && wget http://svn.code.sf.net/p/euslisp/code/trunk/EusLisp/doc/jlatex/jmanual.pdf -O jmanual.pdf
 
 bashrc.eus:
 	@bash -c 'echo -e "#\n\
@@ -54,9 +54,6 @@ eus:
 	svn co -N $(SVN_EUSURL)/lib eus/lib
 	cd eus; svn up lisp lib/llib || svn up lisp lib/llib
 
-eus/models:
-	svn co $(SVN_EUSURL)/models eus/models
-
 rm-lib-dir:
 	# remove unsupported directories
 	@if [ -e eus/lib/clib -o -e eus/lib/demo -o -e eus/lib/bitmaps ]; then\
@@ -64,11 +61,11 @@ rm-lib-dir:
 		svn up -q eus/lib/llib; \
 	fi
 
-eus-installed: eus eus/models rm-lib-dir
+eus-installed: eus rm-lib-dir
 	cd eus/lisp && ln -sf $(MAKEFILE) Makefile && make eus0 eus1 eus2 eusg eusx eusgl eus
 
 irteus:
-	svn up irteus || svn up irteus
+	if [ -e irteus/.svn ] && (svn up irteus || svn up irteus)
 
 irteus-installed: irteus
 	cd irteus; make
