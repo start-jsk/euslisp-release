@@ -29,10 +29,10 @@ export EUSDIR=$(shell pwd)/eus
 
 manuals: manual.pdf jmanual.pdf
 manual.pdf:
-	which wget && wget http://svn.code.sf.net/p/euslisp/code/trunk/EusLisp/doc/latex/manual.pdf -O manual.pdf
+	ln -sf eus/doc/latex/manual.pdf manual.pdf
 
 jmanual.pdf:
-	which wget && wget http://svn.code.sf.net/p/euslisp/code/trunk/EusLisp/doc/jlatex/jmanual.pdf -O jmanual.pdf
+	ln -sf eus/doc/jlatex/jmanual.pdf  jmanual.pdf
 
 bashrc.eus:
 	@bash -c 'echo -e "#\n\
@@ -59,6 +59,8 @@ rm-lib-dir:
 	@if [ -e eus/lib/clib/.svn -o -e eus/lib/demo/.svn -o -e eus/lib/bitmaps/.svn ]; then\
 		svn up -q --set-depth files eus/lib/; \
 		svn up -q eus/lib/llib; \
+	else \
+		rm -fr eus/lib/clib eus/lib/demo eus/lib/bitmaps; \
 	fi
 
 eus-installed: eus rm-lib-dir
