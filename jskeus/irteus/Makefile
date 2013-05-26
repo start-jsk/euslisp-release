@@ -1,6 +1,6 @@
 ###############################################################################
 ###
-### $Id: Makefile 855 2012-10-04 06:28:25Z k-okada $
+### $Id: Makefile 915 2013-05-26 17:06:02Z k-okada $
 ###
 ### Copyright (c) 1987- JSK, The University of Tokyo.  All Rights Reserved.
 ###
@@ -140,7 +140,7 @@ $(BINS):
 	ln -sf eus$(ESFX) $(BINDIR)/irteus$(ESFX)
 	ln -sf eusgl$(ESFX) $(BINDIR)/irteusgl$(ESFX)
 $(EUSDIR)/irteus:
-	ln -sf `pwd` $(EUSDIR)/irteus
+	ln -sf ../irteus $(EUSDIR)/irteus
 
 install-irtext.l: $(EUSDIR)/lib/irtext.l
 $(EUSDIR)/lib/irtext.l: irtext.l
